@@ -1,4 +1,3 @@
-
 import dotenv from 'dotenv';
 
 let envFile = '.env';
