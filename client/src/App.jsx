@@ -1,3 +1,4 @@
+
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { PublicLayout } from './layout/PublicLayout';
 import { PageHome } from './pages/PageHome';
@@ -19,5 +20,5 @@ export function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }

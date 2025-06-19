@@ -2,15 +2,16 @@
 import { Link } from "react-router";
 import { MenuLink } from "./MenuLink";
 import { mainMenuData } from "../../data/mainMenuData";
+import heroImg from '../../assets/movies-hero.png';
 
 export function Header() {
     return (
         <div className="container">
             <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
                 <div className="col-md-3 mb-2 mb-md-0">
-                    <a href="/" className="d-inline-flex link-body-emphasis text-decoration-none">
-                        <img src="#" alt="Logo" />
-                    </a>
+                    <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none">
+                        <img src={heroImg} alt="Logo" style={{ height: '3rem' }} />
+                    </Link>
                 </div>
                 <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                     {mainMenuData.map(link => <MenuLink key={link.text} to={link.href}>{link.text}</MenuLink>)}
