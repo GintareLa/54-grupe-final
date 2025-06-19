@@ -1,6 +1,7 @@
 
 import { Link } from "react-router";
 import { MenuLink } from "./MenuLink";
+import { mainMenuData } from "../../data/mainMenuData";
 
 export function Header() {
     return (
@@ -12,9 +13,7 @@ export function Header() {
                     </a>
                 </div>
                 <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                    <MenuLink to='/'>Home</MenuLink>
-                    <MenuLink to='/movies'>Movies</MenuLink>
-                    <MenuLink to='/categories'>Categories</MenuLink>
+                    {mainMenuData.map(link => <MenuLink key={link.text} to={link.href}>{link.text}</MenuLink>)}
                 </ul>
                 <div className="col-md-3 text-end">
                     <Link to='/register' className="btn btn-primary me-2">Register</Link>
