@@ -3,11 +3,11 @@ import { useState } from "react";
 import { CategoriesList } from "./CategoriesList";
 import { useEffect } from "react";
 
-export function FeaturedCategories() {
+export function AllCategories() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5434/api/categories/featured', {
+        fetch('http://localhost:5417/api/categories', {
             method: 'GET',
         })
             .then(res => res.json())
@@ -21,7 +21,7 @@ export function FeaturedCategories() {
 
     return (
         <div className="container px-4 py-5" id="featured-3">
-            <h2 className="pb-2 border-bottom">Movies by category</h2>
+            <h2 className="pb-2 border-bottom">All categories</h2>
             <CategoriesList data={data} />
         </div>
     );
