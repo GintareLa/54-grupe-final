@@ -7,7 +7,7 @@ export function AllCategories() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5417/api/categories', {
+        fetch('http://localhost:5434/api/categories', {
             method: 'GET',
         })
             .then(res => res.json())
@@ -17,7 +17,7 @@ export function AllCategories() {
                 }
             })
             .catch(console.error);
-    })
+    }, []);
 
     return (
         <div className="container px-4 py-5" id="featured-3">

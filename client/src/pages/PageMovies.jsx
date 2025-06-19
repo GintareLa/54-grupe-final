@@ -1,7 +1,29 @@
+
+import { useState } from "react";
+import { MovieList } from "../components/movies/MovieList";
+import { useEffect } from "react";
+
 export function PageMovies() {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5434/api/movies', {
+            method: 'GET',
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    setData(() => data.data);
+                }
+            })
+            .catch(console.error);
+    }, []);
+
+
     return (
         <>
-            MOVIES PAGE CONTENT
+            {/* FILTER */}
+            <MovieList data={data} />
         </>
     )
 }
