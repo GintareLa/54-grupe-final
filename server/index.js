@@ -1,7 +1,7 @@
 
 import express from 'express';
 import cors from 'cors';
-import { apiRouter } from './routes/ApiRouter.js';
+import { apiRouter } from './routes/apiRouter.js';
 import { PORT_CLIENT, PORT_SERVER } from './env.js';
 
 const app = express();

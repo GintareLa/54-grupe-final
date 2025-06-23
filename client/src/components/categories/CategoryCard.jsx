@@ -11,7 +11,7 @@ export function CategoryCard({ data }) {
             <h3 className="fs-2 text-body-emphasis">{data.name}</h3>
             <p>Count: {data.count}</p>
             <p>{data.description}</p>
-            <Link to={`/movies-by-category/${data.url_slug}`} className="icon-link">
+            <Link to={`/categories/${data.url_slug}`} className="icon-link">
                 View category
                 <svg className="bi" aria-hidden="true" viewBox="0 0 16 16"> <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path> </svg>
             </Link>
