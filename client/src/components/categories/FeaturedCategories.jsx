@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { CategoriesList } from "./CategoriesList";
 
-
 export function FeaturedCategories() {
     const [data, setData] = useState([]);
 
@@ -17,7 +16,7 @@ export function FeaturedCategories() {
                 }
             })
             .catch(console.error);
-    })
+    }, []);
 
     return (
         <div className="container px-4 py-5" id="featured-3">

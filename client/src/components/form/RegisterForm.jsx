@@ -35,11 +35,14 @@ export function RegisterForm() {
                 console.log(data);
 
                 if (data.status === 'success') {
-                    setAlertText(data.msg);
+                    setAlertText('Sėkmingai prisiregistravote! Po 3 sekundžių būsite perkelti į prisijungimo puslapį.');
                     setAlertStatus('success');
                     setEmailValidationState('is-valid');
                     setPasswordValidationState('is-valid');
-                    // navigate('/login');
+
+                    setTimeout(() => {
+                        navigate('/login');
+                    }, 3000);
                 } else {
                     if (typeof data.msg === 'string') {
                         setAlertText(data.msg);
