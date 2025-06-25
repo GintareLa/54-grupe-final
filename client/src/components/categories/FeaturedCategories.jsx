@@ -1,7 +1,7 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CategoriesList } from "./CategoriesList";
-import { useEffect } from "react";
+
 
 export function FeaturedCategories() {
     const [data, setData] = useState([]);
@@ -13,7 +13,7 @@ export function FeaturedCategories() {
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    setData(() => data.data);
+                    setData(() => data.list);
                 }
             })
             .catch(console.error);

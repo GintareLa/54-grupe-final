@@ -5,8 +5,11 @@ import { getFeaturedCategories } from '../api/getFeaturedCategories.js';
 import { getAllMovies } from '../api/getAllMovies.js';
 import { getMovieBySlug } from '../api/getMovieBySlug.js';
 import { getMoviesByCategory } from '../api/getMoviesByCategory.js';
+import { postRegister } from '../api/postRegister.js';
 
 export const apiRouter = express.Router();
+
+apiRouter.post('/register', postRegister);
 
 apiRouter.get('/categories', getAllCategories);
 apiRouter.get('/categories/featured', getFeaturedCategories);
