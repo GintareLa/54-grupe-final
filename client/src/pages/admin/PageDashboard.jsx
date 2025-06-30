@@ -1,8 +1,8 @@
 
 export function PageDashboard() {
     return (
-        <div className="container">
+        <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             DASHBOARD CONTENT
-        </div>
+        </main>
     );
 }

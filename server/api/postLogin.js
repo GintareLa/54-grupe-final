@@ -21,7 +21,7 @@ export async function postLogin(req, res) {
     let userObj = null;
 
     try {
-        const sql = 'SELECT * FROM users WHERE email = ?;';
+        const sql = 'SELECT * FROM users1 WHERE email = ?;';
         const [result] = await connection.execute(sql, [email]);
 
         if (result.length === 0) {
@@ -52,7 +52,7 @@ export async function postLogin(req, res) {
     const loginToken = randomString(20);
 
     try {
-        const sql = 'INSERT INTO tokens (text, user_id) VALUES (?, ?);';
+        const sql = 'INSERT INTO tokens1 (text, user_id) VALUES (?, ?);';
         const [result] = await connection.execute(sql, [loginToken, userObj.id]);
 
         if (result.affectedRows !== 1) {
@@ -84,5 +84,9 @@ export async function postLogin(req, res) {
         .json({
             status: 'success',
             msg: 'Jus buvote sekmingai prijungti prie sistemos',
+            user: {
+                id: userObj.id,
+                email: email,
+            },
         });
 }

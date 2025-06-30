@@ -5,8 +5,8 @@ export async function getMoviesByCategory(req, res) {
     try {
         const sql = `
             SELECT *
-            FROM movies
-            WHERE category_id = (SELECT id FROM categories WHERE url_slug = ?);`;
+            FROM movies1
+            WHERE category_id = (SELECT id FROM categories1 WHERE url_slug = ?);`;
         const [result] = await connection.execute(sql, [req.params.slug]);
         return res.json({
             status: 'success',

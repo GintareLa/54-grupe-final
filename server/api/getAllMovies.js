@@ -5,7 +5,7 @@ export async function getAllMovies(req, res) {
     try {
         const sql = `
             SELECT *
-            FROM movies;`;
+            FROM movies1;`;
         const [result] = await connection.execute(sql);
         return res.json({
             status: 'success',

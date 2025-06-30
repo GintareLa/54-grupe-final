@@ -7,10 +7,10 @@ export async function getAllCategories(req, res) {
             SELECT *,
                 ( 
                     SELECT COUNT(*)
-                    FROM movies
-                    WHERE movies.category_id = categories.id AND movies.is_published = 1
+                    FROM movies1
+                    WHERE movies1.category_id = categories1.id AND movies1.is_published = 1
                 ) AS count
-            FROM categories
+            FROM categories1
             WHERE is_published = 1
             ORDER BY name;`;
         const [result] = await connection.execute(sql);

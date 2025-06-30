@@ -4,13 +4,13 @@ import { connection } from "../db.js";
 export async function getMovieBySlug(req, res) {
     try {
         const sql = `
-            SELECT movies.*,
-                categories.name as categoryName,
-                categories.url_slug as categoryUrlSlug
-            FROM movies
-            INNER JOIN categories
-                ON categories.id = movies.category_id
-            WHERE movies.url_slug = ?;`;
+            SELECT movies1.*,
+                categories1.name as categoryName,
+                categories1.url_slug as categoryUrlSlug
+            FROM movies1
+            INNER JOIN categories1
+                ON categories1.id = movies1.category_id
+            WHERE movies1.url_slug = ?;`;
         const [result] = await connection.execute(sql, [req.params.slug]);
         return res.json({
             status: 'success',

@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
-import { CategoriesList } from "../components/categories/CategoriesList";
-import { PageTitle } from "../components/page-title/PageTitle";
+import { CategoriesList } from "../../../components/categories/CategoriesList";
+import { PageTitle } from "../../../components/page-title/PageTitle";
 
 export function PageCategories() {
     const [data, setData] = useState([]);
