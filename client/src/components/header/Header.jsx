@@ -10,7 +10,7 @@ export function Header({ isPublicPage }) {
     const { isLoggedIn, logout } = useContext(UserContext);
 
     function handleLogoutClick() {
-        fetch('http://localhost:5434/api/logout', {
+        fetch('http://localhost:5434/api/admin/logout', {
             method: 'GET',
             credentials: 'include',
         })
