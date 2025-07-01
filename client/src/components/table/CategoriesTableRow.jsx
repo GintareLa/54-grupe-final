@@ -3,7 +3,7 @@ import { BadgeDanger } from "../badge/BadgeDanger";
 import { BadgeDraft } from "../badge/BadgeDraft";
 import { BadgeSuccess } from "../badge/BadgeSuccess";
 
-export function CategoryTableRow({ data }) {
+export function CategoriesTableRow({ data }) {
     return (
         <tr>
             <td>{data.id}</td>

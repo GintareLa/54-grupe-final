@@ -1,8 +1,10 @@
 
 export const initialMoviesContext = {
-    movies: [],
-    setList: () => { },
-    create: () => { },
-    edit: () => { },
-    remove: () => { },
+    publicMovies: [],
+    adminMovies: [],
+    setPublicMoviesList: () => { },
+    setAdminMoviesList: () => { },
+    adminCreateMovie: () => { },
+    adminEditMovie: () => { },
+    adminRemoveMovie: () => { },
 };

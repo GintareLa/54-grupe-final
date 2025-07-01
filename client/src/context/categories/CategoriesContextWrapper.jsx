@@ -20,7 +20,7 @@ export function CategoriesContextWrapper(props) {
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        setPublicList(data.list);
+                        setPublicCategoriesList(data.list);
                     }
                 })
                 .catch(console.error);
@@ -36,7 +36,7 @@ export function CategoriesContextWrapper(props) {
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        setAdminList(data.list);
+                        setAdminCategoriesList(data.list);
                     }
                 })
                 .catch(console.error);
@@ -51,18 +51,22 @@ export function CategoriesContextWrapper(props) {
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    setFeaturedList(data.list);
+                    setFeaturedCategoriesList(data.list);
                 }
             })
             .catch(console.error);
     }, []);
 
-    function setPublicList(data) {
+    function setPublicCategoriesList(data) {
         setPublicCategories(() => data);
     }
 
-    function setAdminList(data) {
+    function setAdminCategoriesList(data) {
         setAdminCategories(() => data);
+    }
+
+    function setFeaturedCategoriesList(data) {
+        setFeaturedCategories(() => data);
     }
 
     function adminCreateCategory() {
@@ -74,17 +78,13 @@ export function CategoriesContextWrapper(props) {
     function adminRemoveCategory() {
     }
 
-    function setFeaturedList(data) {
-        setFeaturedCategories(() => data);
-    }
-
     const value = {
         publicCategories,
         featuredCategories,
         adminCategories,
-        setPublicList,
-        setFeaturedList,
-        setAdminList,
+        setPublicCategoriesList,
+        setFeaturedCategoriesList,
+        setAdminCategoriesList,
         adminCreateCategory,
         adminEditCategory,
         adminRemoveCategory,

@@ -1,4 +1,3 @@
-
 import express from 'express';
 import { publicApiRouter } from './publicApiRouter.js';
 import { adminApiRouter } from './adminApiRouter.js';

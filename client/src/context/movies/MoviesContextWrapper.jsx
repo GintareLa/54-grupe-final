@@ -5,49 +5,68 @@ import { MoviesContext } from "./MoviesContext";
 import { UserContext } from "../user/UserContext";
 
 export function MoviesContextWrapper(props) {
-    const [movies, setMovies] = useState(initialMoviesContext.movies);
+    const [publicMovies, setPublicMovies] = useState(initialMoviesContext.publicMovies);
+    const [adminMovies, setAdminMovies] = useState(initialMoviesContext.adminMovies);
 
     const { isLoggedIn } = useContext(UserContext);
 
     useEffect(() => {
-        let apiUrl = 'http://localhost:5434/api/public/movies';
-
-        if (isLoggedIn) {
-            apiUrl = 'http://localhost:5434/api/admin/movies';
-        }
-
-        fetch(apiUrl, {
-            method: 'GET',
-            credentials: 'include',
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    setList(data.list);
-                }
+        if (!isLoggedIn) {
+            fetch('http://localhost:5434/api/public/movies', {
+                method: 'GET',
+                credentials: 'include',
             })
-            .catch(console.error);
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        setPublicMoviesList(data.list);
+                    }
+                })
+                .catch(console.error);
+        }
     }, [isLoggedIn]);
 
-    function setList(data) {
-        setMovies(() => data);
+    useEffect(() => {
+        if (isLoggedIn) {
+            fetch('http://localhost:5434/api/admin/movies', {
+                method: 'GET',
+                credentials: 'include',
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        setAdminMoviesList(data.list);
+                    }
+                })
+                .catch(console.error);
+        }
+    }, [isLoggedIn]);
+
+    function setPublicMoviesList(data) {
+        setPublicMovies(() => data);
     }
 
-    function create() {
+    function setAdminMoviesList(data) {
+        setAdminMovies(() => data);
     }
 
-    function edit() {
+    function adminCreateMovie() {
     }
 
-    function remove() {
+    function adminEditMovie() {
+    }
+
+    function adminRemoveMovie() {
     }
 
     const value = {
-        movies,
-        setList,
-        create,
-        edit,
-        remove,
+        publicMovies,
+        adminMovies,
+        setPublicMovies,
+        setAdminMoviesList,
+        adminCreateMovie,
+        adminEditMovie,
+        adminRemoveMovie,
     };
 
     return (

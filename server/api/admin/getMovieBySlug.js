@@ -1,3 +1,4 @@
+
 import { connection } from "../../db.js";
 
 export async function getMovieBySlug(req, res) {
