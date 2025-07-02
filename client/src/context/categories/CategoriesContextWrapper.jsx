@@ -13,33 +13,13 @@ export function CategoriesContextWrapper(props) {
 
     useEffect(() => {
         if (!isLoggedIn) {
-            fetch('http://localhost:5434/api/public/categories', {
-                method: 'GET',
-                credentials: 'include',
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        setPublicCategoriesList(data.list);
-                    }
-                })
-                .catch(console.error);
+            fetchPublicCategories();
         }
     }, [isLoggedIn]);
 
     useEffect(() => {
         if (isLoggedIn) {
-            fetch('http://localhost:5434/api/admin/categories', {
-                method: 'GET',
-                credentials: 'include',
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        setAdminCategoriesList(data.list);
-                    }
-                })
-                .catch(console.error);
+            fetchAdminCategories();
         }
     }, [isLoggedIn]);
 
@@ -57,6 +37,34 @@ export function CategoriesContextWrapper(props) {
             .catch(console.error);
     }, []);
 
+    function fetchPublicCategories() {
+        fetch('http://localhost:5434/api/public/categories', {
+            method: 'GET',
+            credentials: 'include',
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    setPublicCategoriesList(data.list);
+                }
+            })
+            .catch(console.error);
+    }
+
+    function fetchAdminCategories() {
+        fetch('http://localhost:5434/api/admin/categories', {
+            method: 'GET',
+            credentials: 'include',
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    setAdminCategoriesList(data.list);
+                }
+            })
+            .catch(console.error);
+    }
+
     function setPublicCategoriesList(data) {
         setPublicCategories(() => data);
     }
@@ -69,13 +77,9 @@ export function CategoriesContextWrapper(props) {
         setFeaturedCategories(() => data);
     }
 
-    function adminCreateCategory() {
-    }
-
-    function adminEditCategory() {
-    }
-
-    function adminRemoveCategory() {
+    function adminRefreshCategory() {
+        fetchPublicCategories();
+        fetchAdminCategories();
     }
 
     const value = {
@@ -85,9 +89,7 @@ export function CategoriesContextWrapper(props) {
         setPublicCategoriesList,
         setFeaturedCategoriesList,
         setAdminCategoriesList,
-        adminCreateCategory,
-        adminEditCategory,
-        adminRemoveCategory,
+        adminRefreshCategory,
     };
 
     return (

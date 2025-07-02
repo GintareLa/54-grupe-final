@@ -9,7 +9,7 @@ import { MoviesContext } from "../../../context/movies/MoviesContext";
 export function PageCategoryInner() {
     const { publicMovies } = useContext(MoviesContext);
     const params = useParams();
-    const categoryMovies = (publicMovies || []).filter(m => m.categoryUrlSlug === params.category);
+    const categoryMovies = publicMovies.filter(m => m.categoryUrlSlug === params.category);
 
     return (
         <div className="container">
