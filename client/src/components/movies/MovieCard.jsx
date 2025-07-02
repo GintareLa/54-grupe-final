@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router';
-import { formatMovieDuration } from '../../lib/formatMovieDuration';
+import { formatMovieDuration } from '../../lib/formatMovieDuration.js';
 
 export function MovieCard({ data }) {
     return (

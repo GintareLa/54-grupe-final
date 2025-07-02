@@ -6,13 +6,13 @@ import { PageTitle } from "../../../components/page-title/PageTitle";
 import { MoviesContext } from "../../../context/movies/MoviesContext";
 
 export function PageMovies() {
-    const { movies } = useContext(MoviesContext);
+    const { publicMovies} = useContext(MoviesContext);
 
     return (
         <div className="container">
             <PageTitle title="All movies" />
             <Placeholder text="Filter" />
-            <MovieList data={movies} />
+            <MovieList data={publicMovies} />
         </div>
     )
 }
