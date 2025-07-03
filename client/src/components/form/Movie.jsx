@@ -125,7 +125,7 @@ export function MovieForm() {
                 <hr className="my-4" />
                 <div className="d-flex" style={{ gap: '1rem' }}>
                     <button className="btn btn-success btn-lg" type="submit">Create</button>
-                    <button className="btn btn-secondary btn-lg ms-auto" type="reset">Reset</button>
+                    <button onClick={handleResetClick} className="btn btn-secondary btn-lg ms-auto" type="reset">Reset</button>
                 </div>
             </form>
         </>

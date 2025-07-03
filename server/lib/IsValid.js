@@ -1,4 +1,17 @@
 
+/**
+ * ```
+ * username(text)
+ * email(text)
+ * password(text)
+ * id(number)
+ * nonEmptyString(text)
+ * urlSlug(text)
+ * includesInList(value, allowedValues)
+ * positiveInteger(number)
+ * idAsString(text)
+ * ```
+ */
 export class IsValid {
     /**
      * 
@@ -268,6 +281,19 @@ export class IsValid {
 
         if (number < 0) {
             return [true, 'Reikalingas teigiamas sveikasis skaicius'];
+        }
+
+        return [false, 'Ok'];
+    }
+
+    static idAsString(text) {
+        const number = +text;
+
+        if (!Number.isInteger(number)
+            || number < 1
+            || number > Number.MAX_SAFE_INTEGER
+        ) {
+            return [true, 'ID turi buti teigiamas sveikasis skaiciaus.'];
         }
 
         return [false, 'Ok'];

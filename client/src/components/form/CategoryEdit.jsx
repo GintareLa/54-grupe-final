@@ -1,39 +1,40 @@
 
 import { useContext, useEffect, useState } from "react";
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { CategoriesContext } from "../../context/categories/CategoriesContext";
 
-export function CategoryForm() {
+export function CategoryEditForm() {
+    const navigate = useNavigate();
     const { category } = useParams();
     const { adminCategories, adminRefreshCategory } = useContext(CategoriesContext);
 
+    const [id, setId] = useState(0);
     const [name, setName] = useState('');
     const [url, setUrl] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState('draft');
 
-    useEffect(() => {
+    useEffect(handleResetClick, [adminCategories, category]);
+
+    function handleResetClick() {
         const categoryData = category ? adminCategories.filter(c => c.url_slug === category)[0] : null;
+
+        console.log(categoryData);
+
         if (categoryData) {
+            setId(categoryData.id);
             setName(categoryData.name);
             setUrl(categoryData.url_slug);
             setDescription(categoryData.description);
             setStatus(categoryData.is_published === 0 ? 'draft' : 'publish');
         }
-    }, [adminCategories, category]);
-
-    function handleResetClick() {
-        setName('');
-        setUrl('');
-        setDescription('');
-        setStatus('draft');
     }
 
     function handleFormSubmit(e) {
         e.preventDefault();
 
-        fetch('http://localhost:5434/api/admin/categories', {
-            method: 'POST',
+        fetch('http://localhost:5434/api/admin/categories/' + id, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -44,13 +45,14 @@ export function CategoryForm() {
             .then(data => {
                 if (data.status === 'success') {
                     adminRefreshCategory();
+                    navigate('/admin/categories');
                 }
             })
             .catch(console.error);
     }
 
     return (
-        <form onSubmit={handleFormSubmit} action="/api/admin/categories" data-method="POST" className="needs-validation col-12 col-md-10 col-lg-8 col-xl-6">
+        <form onSubmit={handleFormSubmit} className="needs-validation col-12 col-md-10 col-lg-8 col-xl-6">
             <div className="row g-3">
                 <div className="col-sm-12">
                     <label htmlFor="name" className="form-label">Category name</label>
@@ -86,7 +88,7 @@ export function CategoryForm() {
             </div>
             <hr className="my-4" />
             <div className="d-flex" style={{ gap: '1rem' }}>
-                <button className="btn btn-success btn-lg" type="submit">Create</button>
+                <button className="btn btn-success btn-lg" type="submit">Update</button>
                 <button onClick={handleResetClick} className="btn btn-secondary btn-lg ms-auto" type="reset">Reset</button>
             </div>
         </form>

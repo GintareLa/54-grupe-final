@@ -7,4 +7,5 @@ export const initialCategoriesContext = {
     setFeaturedCategoriesList: () => { },
     setAdminCategoriesList: () => { },
     adminRefreshCategory: () => { },
+    adminDeleteCategory: () => { },
 };
