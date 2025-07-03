@@ -1,12 +1,13 @@
 
 import { connection } from "../../db.js";
 
-export async function getAllMovies(req, res) {
+export async function moviesByCategoryGet(req, res) {
     try {
         const sql = `
             SELECT *
-            FROM movies1;`;
-        const [result] = await connection.execute(sql);
+            FROM movies1
+            WHERE category_id = (SELECT id FROM categories1 WHERE url_slug = ?);`;
+        const [result] = await connection.execute(sql, [req.params.slug]);
         return res.json({
             status: 'success',
             list: result,

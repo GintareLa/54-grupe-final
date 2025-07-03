@@ -1,11 +1,12 @@
 
 import { useContext, useEffect, useState } from "react";
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { CategoriesContext } from "../../context/categories/CategoriesContext";
 import { MoviesContext } from "../../context/movies/MoviesContext";
 import defaultImg from '../../assets/default.webp';
 
-export function MovieForm() {
+export function MovieNewForm() {
+    const navigate = useNavigate();
     const { movie } = useParams();
     const { adminCategories } = useContext(CategoriesContext);
     const { adminMovies } = useContext(MoviesContext);
@@ -40,18 +41,37 @@ export function MovieForm() {
     function handleMainFormSubmit(e) {
         e.preventDefault();
 
+        const data = { name, url, status };
+
+        if (img) {
+            data.img = img;
+        }
+        if (description) {
+            data.description = description;
+        }
+        if (minutes) {
+            data.minutes = minutes;
+        }
+        if (hours) {
+            data.hours = hours;
+        }
+        if (category) {
+            data.category = category;
+        }
+
         fetch('http://localhost:5434/api/admin/movies', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             credentials: 'include',
-            body: JSON.stringify({ img, name, url, description, minutes, hours, category, status }),
+            body: JSON.stringify(data),
         })
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    // adminRefreshCategory();
+                    // adminRefreshMovies();
+                    navigate('/admin/movies');
                 }
             })
             .catch(console.error);
