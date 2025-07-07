@@ -5,7 +5,7 @@ import { CategoriesContext } from "../../context/categories/CategoriesContext";
 import { MoviesContext } from "../../context/movies/MoviesContext";
 import defaultImg from '../../assets/default.webp';
 
-export function MovieNewForm() {
+export function MovieEditForm() {
     const navigate = useNavigate();
     const { movie } = useParams();
     const { adminCategories } = useContext(CategoriesContext);
@@ -23,10 +23,16 @@ export function MovieNewForm() {
     useEffect(() => {
         const movieData = movie ? adminMovies.filter(m => m.url_slug === movie)[0] : null;
 
+        console.log(movieData);
+
         if (movieData) {
-            setName(movieData.name);
+            setImg(movieData.thumbnail);
+            setName(movieData.title);
             setUrl(movieData.url_slug);
             setDescription(movieData.description);
+            setMinutes(movieData.duration % 60);
+            setHours((movieData.duration - movieData.duration % 60) / 60);
+            setCategory(movieData.category_url_slug);
             setStatus(movieData.is_published === 0 ? 'draft' : 'publish');
         }
     }, [adminMovies, movie]);
@@ -88,7 +94,8 @@ export function MovieNewForm() {
                             Valid image is required.
                         </div>
                     </div>
-                    <img id="image" className="col-12" style={{ maxHeight: '20rem', objectFit: 'contain' }} src={img ? img : defaultImg} alt="" />
+                    <img id="image" className="col-12 movie-thumbnail" src={img ? img : defaultImg} alt="" />
+                    <p>{img}</p>
                 </div>
             </form>
 

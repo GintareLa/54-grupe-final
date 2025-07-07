@@ -1,5 +1,5 @@
 
-import crypto from 'crypto';
+import crypto from 'node:crypto';
 
 export function hash(text, salt) {
     try {

@@ -36,7 +36,7 @@ export function MoviesTableRow({ movie }) {
             <td>{movie.is_published ? <BadgeSuccess text="Published" /> : <BadgeDraft text="Draft" />}</td>
             <td>
                 <div style={{ display: 'flex', gap: '0.3rem' }}>
-                    <a className="btn btn-primary" href={`/admin/categories/${movie.url_slug}/edit`}>Edit</a>
+                    <a className="btn btn-primary" href={`/admin/movies/${movie.url_slug}/edit`}>Edit</a>
                     <button onClick={handleDeleteClick} className="btn btn-danger" type="button">Delete</button>
                 </div>
             </td>
