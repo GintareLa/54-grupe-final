@@ -293,7 +293,7 @@ export class IsValid {
             || number < 1
             || number > Number.MAX_SAFE_INTEGER
         ) {
-            return [true, 'ID turi buti teigiamas sveikasis skaiciaus.'];
+            return [true, 'ID turi buti teigiamas sveikasis skaicius.'];
         }
 
         return [false, 'Ok'];

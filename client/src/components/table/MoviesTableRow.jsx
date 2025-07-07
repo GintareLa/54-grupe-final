@@ -1,15 +1,15 @@
-
+import { useContext } from "react";
+import { Link } from 'react-router';
 import { BadgeDanger } from "../badge/BadgeDanger";
 import { BadgeDraft } from "../badge/BadgeDraft";
 import { BadgeSuccess } from "../badge/BadgeSuccess";
 import defaultImg from '../../assets/default.webp';
 import { formatMovieDuration } from "../../lib/formatMovieDuration";
-import { useContext } from "react";
 import { MoviesContext } from "../../context/movies/MoviesContext";
 
 export function MoviesTableRow({ movie }) {
     const { adminDeleteMovie } = useContext(MoviesContext);
-    const img = movie.thumbnail ? `http://localhost:5434/img/movie-thumbnails/${movie.thumbnail}` : defaultImg;
+    const img = movie.thumbnail ? movie.thumbnail : defaultImg;
 
     function handleDeleteClick() {
         fetch('http://localhost:5434/api/admin/movies/' + movie.id, {
@@ -36,7 +36,7 @@ export function MoviesTableRow({ movie }) {
             <td>{movie.is_published ? <BadgeSuccess text="Published" /> : <BadgeDraft text="Draft" />}</td>
             <td>
                 <div style={{ display: 'flex', gap: '0.3rem' }}>
-                    <a className="btn btn-primary" href={`/admin/movies/${movie.url_slug}/edit`}>Edit</a>
+                    <Link className="btn btn-primary" to={`/admin/movies/${movie.url_slug}/edit`}>Edit</Link>
                     <button onClick={handleDeleteClick} className="btn btn-danger" type="button">Delete</button>
                 </div>
             </td>

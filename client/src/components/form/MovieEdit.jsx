@@ -9,8 +9,9 @@ export function MovieEditForm() {
     const navigate = useNavigate();
     const { movie } = useParams();
     const { adminCategories } = useContext(CategoriesContext);
-    const { adminMovies } = useContext(MoviesContext);
+    const { adminMovies, adminRefreshMovies } = useContext(MoviesContext);
 
+    const [id, setId] = useState(0);
     const [img, setImg] = useState('');
     const [name, setName] = useState('');
     const [url, setUrl] = useState('');
@@ -26,6 +27,7 @@ export function MovieEditForm() {
         console.log(movieData);
 
         if (movieData) {
+            setId(movieData.id);
             setImg(movieData.thumbnail);
             setName(movieData.title);
             setUrl(movieData.url_slug);
@@ -44,13 +46,31 @@ export function MovieEditForm() {
         setStatus('draft');
     }
 
+    function handleImageChange(e) {
+        const formData = new FormData();
+        formData.append('thumbnail', e.target.files[0]);
+
+        fetch('http://localhost:5434/api/admin/upload', {
+            method: 'POST',
+            credentials: 'include',
+            body: formData,
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    setImg(data.msg);
+                }
+            })
+            .catch(console.error);
+    }
+
     function handleMainFormSubmit(e) {
         e.preventDefault();
 
         const data = { name, url, status };
 
         if (img) {
-            data.img = img;
+            data.img = img.split('/').at(-1);
         }
         if (description) {
             data.description = description;
@@ -65,8 +85,8 @@ export function MovieEditForm() {
             data.category = category;
         }
 
-        fetch('http://localhost:5434/api/admin/movies', {
-            method: 'POST',
+        fetch('http://localhost:5434/api/admin/movies/' + id, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -76,7 +96,7 @@ export function MovieEditForm() {
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    // adminRefreshMovies();
+                    adminRefreshMovies();
                     navigate('/admin/movies');
                 }
             })
@@ -89,13 +109,13 @@ export function MovieEditForm() {
                 <div className="row g-3">
                     <div className="col-12">
                         <label htmlFor="thumbnail" className="form-label">Thumbnail</label>
-                        <input className="form-control" id="thumbnail" name="thumbnail" type="file" required />
+                        <input onChange={handleImageChange} className="form-control" id="thumbnail" name="thumbnail" type="file" required />
                         <div className="invalid-feedback">
                             Valid image is required.
                         </div>
                     </div>
                     <img id="image" className="col-12 movie-thumbnail" src={img ? img : defaultImg} alt="" />
-                    <p>{img}</p>
+                    <p>Image url: {img}</p>
                 </div>
             </form>
 

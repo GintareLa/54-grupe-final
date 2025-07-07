@@ -12,35 +12,43 @@ export function MoviesContextWrapper(props) {
 
     useEffect(() => {
         if (!isLoggedIn) {
-            fetch('http://localhost:5434/api/public/movies', {
-                method: 'GET',
-                credentials: 'include',
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        setPublicMoviesList(data.list);
-                    }
-                })
-                .catch(console.error);
+            fetchPublicMovies();
         }
     }, [isLoggedIn]);
 
     useEffect(() => {
         if (isLoggedIn) {
-            fetch('http://localhost:5434/api/admin/movies', {
-                method: 'GET',
-                credentials: 'include',
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        setAdminMoviesList(data.list);
-                    }
-                })
-                .catch(console.error);
+            fetchAdminMovies();
         }
     }, [isLoggedIn]);
+
+    function fetchPublicMovies() {
+        fetch('http://localhost:5434/api/public/movies', {
+            method: 'GET',
+            credentials: 'include',
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    setPublicMoviesList(data.list);
+                }
+            })
+            .catch(console.error);
+    }
+
+    function fetchAdminMovies() {
+        fetch('http://localhost:5434/api/admin/movies', {
+            method: 'GET',
+            credentials: 'include',
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    setAdminMoviesList(data.list);
+                }
+            })
+            .catch(console.error);
+    }
 
     function setPublicMoviesList(data) {
         setPublicMovies(() => data);
@@ -55,12 +63,18 @@ export function MoviesContextWrapper(props) {
         setAdminMovies(list => list.filter(m => m.id !== id));
     }
 
+    function adminRefreshMovies() {
+        fetchPublicMovies();
+        fetchAdminMovies();
+    }
+
     const value = {
         publicMovies,
         adminMovies,
         setPublicMovies,
         setAdminMoviesList,
         adminDeleteMovie,
+        adminRefreshMovies,
     };
 
     return (
